@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALTSCOPEAI - IA para Sistemas de Salud Inteligentes</title>
+    <meta name="description" content="Transformamos clínicas en sistemas de salud inteligentes y personalizados con IA. Software de gestión clínica, app para pacientes y más.">
+    <meta name="keywords" content="salud digital, software clínico, IA médica, gestión clínica, healthtech, HEALTSCOPEAI">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        .hamburger div {
+            transition: all 0.3s ease-in-out;
+        }
+        .hamburger.open .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .hamburger.open .line2 {
+            opacity: 0;
+        }
+        .hamburger.open .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        /* Estilos para el Modal */
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        /* Animación de carga simple */
+        .loader {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <header id="home" class="bg-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-blue-600">HEALTSCOPE<span class="text-green-500">AI</span></a>
+            
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-gray-600 hover:text-blue-600 transition duration-300">Home</a>
+                <a href="#producto" class="text-gray-600 hover:text-blue-600 transition duration-300">Producto</a>
+                <a href="#para-clinicas" class="text-gray-600 hover:text-blue-600 transition duration-300">Para Clínicas</a>
+                <a href="#contacto" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Contacto</a>
+            </nav>
+
+            <div class="md:hidden">
+                <button id="hamburger-button" class="hamburger text-gray-600 focus:outline-none">
+                    <div class="line1 w-6 h-0.5 bg-gray-600 mb-1"></div>
+                    <div class="line2 w-6 h-0.5 bg-gray-600 mb-1"></div>
+                    <div class="line3 w-6 h-0.5 bg-gray-600"></div>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-menu fixed inset-0 bg-gray-800 bg-opacity-90 z-40 md:hidden">
+            <div class="flex justify-end p-4">
+                <button id="close-menu-button" class="text-white text-2xl">&times;</button>
+            </div>
+            <nav class="flex flex-col items-center justify-center h-full space-y-8">
+                <a href="#home" class="text-white text-xl hover:text-blue-300 transition duration-300 mobile-menu-link">Home</a>
+                <a href="#producto" class="text-white text-xl hover:text-blue-300 transition duration-300 mobile-menu-link">Producto</a>
+                <a href="#para-clinicas" class="text-white text-xl hover:text-blue-300 transition duration-300 mobile-menu-link">Para Clínicas</a>
+                <a href="#contacto" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 mobile-menu-link">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="bg-gradient-to-br from-blue-50 via-indigo-50 to-green-50 py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6 scroll-animate">
+                    Transformamos clínicas en sistemas de salud <span class="text-blue-600">inteligentes</span> y <span class="text-green-500">personalizados</span> con IA.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto scroll-animate" style="transition-delay: 0.2s;">
+                    Descubre cómo HEALTSCOPEAI revoluciona la gestión clínica y la experiencia del paciente.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16 scroll-animate" style="transition-delay: 0.4s;">
+                    <a href="#contacto" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 shadow-lg">
+                        Solicita una demo
+                    </a>
+                    <a href="#producto" class="bg-transparent border-2 border-green-500 text-green-600 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-500 hover:text-white transition duration-300 shadow-lg">
+                        Ver cómo funciona
+                    </a>
+                </div>
+                <div class="relative max-w-4xl mx-auto scroll-animate" style="transition-delay: 0.6s;">
+                    <img src="https://placehold.co/1000x600/E0E7FF/4A5568?text=Mockup+del+Sistema+HEALTSCOPEAI" alt="Mockup del sistema HEALTSCOPEAI en uso" class="rounded-xl shadow-2xl" onerror="this.onerror=null;this.src='https://placehold.co/1000x600/E0E7FF/4A5568?text=Error+al+cargar+imagen';">
+                    <div class="absolute inset-0 rounded-xl opacity-10" style="background: radial-gradient(circle at center, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="producto" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 scroll-animate">¿Qué es <span class="text-blue-600">HEALTSCOPE</span><span class="text-green-500">AI</span>?</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Nuestra misión es potenciar el futuro de la salud a través de la inteligencia artificial, ofreciendo herramientas intuitivas y eficientes para profesionales y pacientes.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="scroll-animate">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-3">Nuestra Historia y Visión</h3>
+                        <p class="text-gray-600 mb-4">
+                            HEALTSCOPEAI nació de la necesidad de modernizar la gestión sanitaria, haciéndola más proactiva, personalizada y humana. Creemos en un futuro donde la tecnología y la IA trabajan en armonía para mejorar la calidad de vida.
+                        </p>
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-3">Valor Diferencial</h3>
+                        <p class="text-gray-600">
+                            Combinamos un software de gestión clínica de vanguardia con una aplicación para pacientes centrada en la conexión emocional y el seguimiento personalizado, todo impulsado por una IA adaptable a las necesidades de cada clínica y paciente.
+                        </p>
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/600x400/DBEAFE/3B82F6?text=Ecosistema+HEALTSCOPEAI" alt="Infografía del ecosistema HEALTSCOPEAI: Software médico, App paciente, IA" class="rounded-lg shadow-xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/DBEAFE/3B82F6?text=Error+Imagen';">
+                        <p class="text-center text-sm text-gray-500 mt-2">Software Médico + App Paciente + IA Personalizada</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="para-clinicas" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 scroll-animate">Beneficios Clave para tu Clínica</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Optimiza tus procesos, mejora la atención y fideliza a tus pacientes con nuestra solución integral potenciada por IA.</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-blue-600 mb-4">
+                                <i data-lucide="brain-circuit" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Diagnóstico Asistido por IA</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Herramientas inteligentes que apoyan la toma de decisiones clínicas, mejorando la precisión y eficiencia.</p>
+                        </div>
+                        <button class="mt-auto bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                            ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between" style="transition-delay: 0.1s;">
+                        <div>
+                            <div class="flex items-center text-green-500 mb-4">
+                                <i data-lucide="clipboard-list" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Gestión Clínica Moderna</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Agenda, historias clínicas electrónicas, facturación y reportes en una plataforma intuitiva y centralizada.</p>
+                        </div>
+                        <button class="mt-auto bg-green-100 text-green-700 hover:bg-green-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                             ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between" style="transition-delay: 0.2s;">
+                        <div>
+                            <div class="flex items-center text-blue-600 mb-4">
+                                <i data-lucide="users" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Fidelización del Paciente</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Mejora la experiencia del paciente con comunicación fluida, acceso a su información y seguimiento personalizado.</p>
+                        </div>
+                        <button class="mt-auto bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                             ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between" style="transition-delay: 0.3s;">
+                        <div>
+                            <div class="flex items-center text-green-500 mb-4">
+                                <i data-lucide="activity" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Seguimiento Inteligente</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Alertas y recordatorios automáticos para un seguimiento post-consulta proactivo y eficiente.</p>
+                        </div>
+                        <button class="mt-auto bg-green-100 text-green-700 hover:bg-green-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                             ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between" style="transition-delay: 0.4s;">
+                        <div>
+                            <div class="flex items-center text-blue-600 mb-4">
+                                <i data-lucide="link" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Integración Sencilla</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Compatible con sistemas existentes (HIS, LIS) para una transición fluida y sin interrupciones.</p>
+                        </div>
+                        <button class="mt-auto bg-blue-100 text-blue-700 hover:bg-blue-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                             ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 scroll-animate flex flex-col justify-between" style="transition-delay: 0.5s;">
+                        <div>
+                            <div class="flex items-center text-green-500 mb-4">
+                                <i data-lucide="shield-check" class="w-10 h-10 mr-3"></i>
+                                <h3 class="text-xl font-semibold benefit-title">Seguridad y Cumplimiento</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4 benefit-description">Máxima protección de datos y cumplimiento de normativas de salud (HIPAA, GDPR).</p>
+                        </div>
+                        <button class="mt-auto bg-green-100 text-green-700 hover:bg-green-200 px-4 py-2 rounded-lg text-sm font-medium transition duration-300 view-ai-examples-button">
+                             ✨ Ver Ejemplos Prácticos con IA
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-gradient-to-r from-green-500 to-blue-600 text-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="md:pr-8 scroll-animate">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">La App del Paciente: Salud y Bienestar en sus Manos</h2>
+                        <p class="text-lg mb-6">
+                            Una experiencia digital diseñada para empoderar a los pacientes, mejorar la adherencia al tratamiento y fomentar una conexión más profunda con su salud y su equipo médico.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i data-lucide="smile" class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-yellow-300"></i>
+                                <span><strong>Test de Personalidad y Bienestar:</strong> Conoce mejor tus necesidades emocionales y de salud.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="file-text" class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-yellow-300"></i>
+                                <span><strong>Recetas Digitales y Recordatorios:</strong> Acceso fácil a tus prescripciones y alertas para no olvidar tus medicamentos.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="bell" class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-yellow-300"></i>
+                                <span><strong>Alertas Personalizadas:</strong> Notificaciones sobre citas, seguimientos y consejos de salud relevantes para ti.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i data-lucide="heart-handshake" class="w-6 h-6 mr-3 mt-1 flex-shrink-0 text-yellow-300"></i>
+                                <span><strong>Conexión Emocional:</strong> Herramientas para expresar tu estado de ánimo y comunicarte de forma efectiva con tu médico.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center scroll-animate" style="transition-delay: 0.2s;">
+                        <img src="https://placehold.co/350x700/FFFFFF/10B981?text=App+del+Paciente" alt="Imagen de la app del paciente HEALTSCOPEAI en un celular" class="rounded-xl shadow-2xl max-w-xs md:max-w-sm" onerror="this.onerror=null;this.src='https://placehold.co/350x700/FFFFFF/10B981?text=Error+Imagen';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 scroll-animate">Tecnología de Vanguardia</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Construido con las últimas tecnologías para garantizar rendimiento, seguridad y escalabilidad.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="p-6 border border-gray-200 rounded-xl shadow-lg scroll-animate">
+                        <i data-lucide="code-2" class="w-16 h-16 mx-auto mb-4 text-blue-600"></i>
+                        <h3 class="text-xl font-semibold mb-2">Desarrollo Robusto</h3>
+                        <p class="text-gray-600">Utilizamos React Native para aplicaciones móviles ágiles y Django (Python) para un backend potente y seguro.</p>
+                    </div>
+                    <div class="p-6 border border-gray-200 rounded-xl shadow-lg scroll-animate" style="transition-delay: 0.15s;">
+                        <i data-lucide="brain" class="w-16 h-16 mx-auto mb-4 text-green-500"></i>
+                        <h3 class="text-xl font-semibold mb-2">Inteligencia Artificial</h3>
+                        <p class="text-gray-600">Modelos de IA personalizados y en constante aprendizaje para ofrecer insights valiosos y asistencia inteligente.</p>
+                    </div>
+                    <div class="p-6 border border-gray-200 rounded-xl shadow-lg scroll-animate" style="transition-delay: 0.3s;">
+                        <i data-lucide="database" class="w-16 h-16 mx-auto mb-4 text-yellow-500"></i>
+                        <h3 class="text-xl font-semibold mb-2">Infraestructura Segura</h3>
+                        <p class="text-gray-600">Firebase para bases de datos escalables y seguras, con énfasis en la interoperabilidad y cumplimiento normativo (HIPAA, GDPR).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 scroll-animate">Más Allá de la Clínica: Potencial Ilimitado</h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Nuestra tecnología es versátil y está lista para adaptarse a nuevos desafíos en el sector salud.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="scroll-animate">
+                        <img src="https://placehold.co/600x400/A7F3D0/059669?text=Clínica+Veterinaria+con+IA" alt="Ilustración de clínica veterinaria usando tecnología" class="rounded-lg shadow-xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x400/A7F3D0/059669?text=Error+Imagen';">
+                    </div>
+                    <div class="scroll-animate" style="transition-delay: 0.2s;">
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-3">Aplicación en Clínicas Veterinarias</h3>
+                        <p class="text-gray-600 mb-6">
+                            El núcleo de HEALTSCOPEAI es adaptable. Estamos explorando activamente la personalización de nuestra plataforma para el sector veterinario, llevando la gestión inteligente y el cuidado asistido por IA también a nuestros amigos de cuatro patas.
+                        </p>
+                        <h3 class="text-2xl font-semibold text-gray-700 mb-3">Expansión Nacional e Internacional</h3>
+                        <p class="text-gray-600">
+                            Con una base tecnológica sólida y un enfoque en la adaptabilidad, HEALTSCOPEAI está preparado para crecer, llevando nuestra innovación a clínicas y sistemas de salud en todo el país y, eventualmente, a mercados internacionales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-blue-600 text-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 md:mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 scroll-animate">Lo que Dicen de Nosotros</h2>
+                    <p class="text-lg opacity-90 max-w-2xl mx-auto scroll-animate" style="transition-delay: 0.2s;">Opiniones de profesionales y usuarios que ya están experimentando la diferencia HEALTSCOPEAI.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg scroll-animate">
+                        <p class="italic mb-4">"HEALTSCOPEAI ha transformado la forma en que gestionamos nuestra clínica. La IA realmente nos ayuda a optimizar tiempos y enfocarnos en el paciente."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/4A5568?text=MD" alt="Foto Dr. Ejemplo" class="w-12 h-12 rounded-full mr-4" onerror="this.onerror=null;this.src='https://placehold.co/50x50/FFFFFF/4A5568?text=Err';">
+                            <div>
+                                <p class="font-semibold">Dr. Ana Pérez</p>
+                                <p class="text-sm opacity-80">Directora, Clínica Bienestar Total</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg scroll-animate" style="transition-delay: 0.15s;">
+                        <p class="italic mb-4">"Como paciente, la app me hace sentir más conectado con mi tratamiento. Las recetas digitales y recordatorios son increíblemente útiles."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/4A5568?text=U" alt="Foto Usuario Ejemplo" class="w-12 h-12 rounded-full mr-4" onerror="this.onerror=null;this.src='https://placehold.co/50x50/FFFFFF/4A5568?text=Err';">
+                            <div>
+                                <p class="font-semibold">Carlos López</p>
+                                <p class="text-sm opacity-80">Usuario de la App HEALTSCOPEAI</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 p-6 rounded-xl shadow-lg scroll-animate" style="transition-delay: 0.3s;">
+                        <p class="italic mb-4">"La capacidad de integrar HEALTSCOPEAI con nuestros sistemas existentes fue clave. La transición fue sorprendentemente fluida."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/50x50/FFFFFF/4A5568?text=IT" alt="Foto Admin Ejemplo" class="w-12 h-12 rounded-full mr-4" onerror="this.onerror=null;this.src='https://placehold.co/50x50/FFFFFF/4A5568?text=Err';">
+                            <div>
+                                <p class="font-semibold">Laura Vargas</p>
+                                <p class="text-sm opacity-80">Jefa de TI, Red Médica Confianza</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 scroll-animate">Explora Nuestro Prototipo</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-10 scroll-animate" style="transition-delay: 0.2s;">
+                    Visualiza el potencial de HEALTSCOPEAI. Interactúa con nuestro prototipo o mira un video demostrativo de la plataforma en acción.
+                </p>
+                <div class="max-w-3xl mx-auto mb-10 bg-gray-200 rounded-lg shadow-xl overflow-hidden scroll-animate" style="transition-delay: 0.4s;">
+                    <img src="https://placehold.co/800x450/CBD5E1/4A5568?text=Video+Demo+o+Slider+del+Prototipo" alt="Video demo del prototipo HEALTSCOPEAI" class="w-full" onerror="this.onerror=null;this.src='https://placehold.co/800x450/CBD5E1/4A5568?text=Error+Imagen';">
+                </div>
+                <div class="scroll-animate" style="transition-delay: 0.6s;">
+                    <a href="#" class="bg-green-500 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-300 shadow-lg">
+                        <i data-lucide="play-circle" class="inline-block w-5 h-5 mr-2 -mt-1"></i> Acceder a la Demo Interactiva
+                    </a>
+                    <p class="text-sm text-gray-500 mt-3">(Ej: Figma, Vercel.app)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 scroll-animate">¿Listo para Transformar la Salud?</h2>
+                    <p class="text-lg text-gray-600 mb-10 scroll-animate" style="transition-delay: 0.2s;">
+                        Contáctanos para una demostración personalizada o para discutir oportunidades de inversión.
+                    </p>
+                </div>
+                <div class="max-w-xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-2xl scroll-animate" style="transition-delay: 0.4s;">
+                    <form id="contactForm">
+                        <div class="mb-6">
+                            <label for="nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="clinica" class="block text-gray-700 font-semibold mb-2">Nombre de la Clínica / Organización</label>
+                            <input type="text" id="clinica" name="clinica" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 font-semibold mb-2">Correo Electrónico</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="mensaje" class="block text-gray-700 font-semibold mb-2">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 shadow-md">
+                            Enviar Mensaje
+                        </button>
+                        <div id="form-message" class="mt-4 text-center"></div>
+                    </form>
+                </div>
+                <div class="text-center mt-12 scroll-animate" style="transition-delay: 0.6s;">
+                    <p class="text-gray-600 mb-3">¿Interesado en invertir en el futuro de la healthtech?</p>
+                    <a href="mailto:inversiones@healtscopeai.com?subject=Interés%20en%20Inversión%20HEALTSCOPEAI" class="bg-green-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-600 transition duration-300 shadow-md">
+                        Quiero Invertir
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <a href="#home" class="text-xl font-bold text-white">HEALTSCOPE<span class="text-green-400">AI</span></a>
+            <nav class="my-6 space-x-6">
+                <a href="#producto" class="hover:text-green-400 transition duration-300">Producto</a>
+                <a href="#para-clinicas" class="hover:text-green-400 transition duration-300">Para Clínicas</a>
+                <a href="#contacto" class="hover:text-green-400 transition duration-300">Contacto</a>
+                <a href="#" class="hover:text-green-400 transition duration-300">Política de Privacidad</a>
+                <a href="#" class="hover:text-green-400 transition duration-300">Términos de Uso</a>
+            </nav>
+            <p class="text-sm">&copy; <span id="currentYear"></span> HEALTSCOPEAI. Todos los derechos reservados.</p>
+            <p class="text-xs mt-2">Diseñado con <i data-lucide="heart" class="inline-block w-3 h-3 text-red-500"></i> para un futuro más saludable.</p>
+        </div>
+    </footer>
+
+    <div id="aiExamplesModal" class="modal fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-[100] hidden p-4 opacity-0">
+        <div class="modal-content bg-white p-6 md:p-8 rounded-xl shadow-2xl max-w-lg w-full transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-xl md:text-2xl font-semibold text-blue-600">Ejemplos Prácticos con IA</h3>
+                <button id="closeModalButton" class="text-gray-500 hover:text-gray-800 text-3xl leading-none">&times;</button>
+            </div>
+            <div id="modalLoading" class="text-center py-8">
+                <div class="loader"></div>
+                <p class="mt-3 text-gray-600">✨ Generando ejemplos con IA...</p>
+            </div>
+            <div id="modalContent" class="text-gray-700 max-h-[60vh] overflow-y-auto hidden">
+                </div>
+            <div id="modalError" class="text-red-600 text-center py-4 hidden">
+                <p>Lo sentimos, no se pudieron generar los ejemplos en este momento. Por favor, inténtalo de nuevo más tarde.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Helper functions for scroll animations
+        const elementInView = (el, percentageScroll = 100) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= 
+                (window.innerHeight || document.documentElement.clientHeight) * (percentageScroll/100)
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('is-visible');
+        };
+
+        let scrollElements; 
+
+        const handleScrollAnimation = () => {
+            if (!scrollElements) return; 
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 80)) { 
+                    displayScrollElement(el);
+                } 
+            });
+        };
+        
+        // Wait for the DOM to be fully loaded before running scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide Icons
+            if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                try {
+                    lucide.createIcons();
+                } catch (e) {
+                    console.error('Error calling lucide.createIcons():', e);
+                }
+            } else {
+                console.error('Lucide library not loaded correctly or lucide.createIcons is not a function.');
+            }
+
+            // Initialize scrollElements after DOM is ready
+            scrollElements = document.querySelectorAll('.scroll-animate');
+            
+            // Initial check for elements in view when page loads
+            handleScrollAnimation(); 
+
+            // Attach scroll event listener for animations
+            window.addEventListener('scroll', handleScrollAnimation);
+
+            // Mobile menu setup
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            if (hamburgerButton && mobileMenu && closeMenuButton && mobileMenuLinks.length > 0) {
+                hamburgerButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('open');
+                    hamburgerButton.classList.toggle('open');
+                });
+
+                closeMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    hamburgerButton.classList.remove('open');
+                });
+
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('open');
+                        hamburgerButton.classList.remove('open');
+                        // Smooth scroll for mobile menu links is handled by the general smooth scroll logic
+                    });
+                });
+            } else {
+                console.warn('One or more mobile menu elements were not found in the DOM.');
+            }
+            
+            // Smooth scroll for all anchor links starting with #
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId === "#" || !targetId.startsWith("#")) {
+                        return;
+                    }
+                    e.preventDefault(); 
+                    
+                    if (targetId.length > 1) { 
+                        try {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                console.warn(`Smooth scroll target '${targetId}' not found.`);
+                            }
+                        } catch (err) {
+                            console.error(`Error during smooth scroll to '${targetId}':`, err);
+                        }
+                    }
+                });
+            });
+
+            // Contact form submission (simulation)
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('form-message');
+
+            if (contactForm && formMessage) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault(); 
+                    
+                    formMessage.textContent = 'Enviando mensaje...';
+                    formMessage.className = 'mt-4 text-center text-blue-600'; 
+
+                    setTimeout(() => {
+                        formMessage.textContent = '¡Gracias! Tu mensaje ha sido enviado con éxito.';
+                        formMessage.className = 'mt-4 text-center text-green-600'; 
+                        contactForm.reset(); 
+
+                        setTimeout(() => {
+                             formMessage.textContent = '';
+                             formMessage.className = 'mt-4 text-center'; 
+                        }, 5000);
+                    }, 1000); 
+                });
+            } else {
+                console.warn('Contact form or form message element not found.');
+            }
+            
+            // Set current year in the footer
+            const currentYearEl = document.getElementById('currentYear');
+            if (currentYearEl) {
+                currentYearEl.textContent = new Date().getFullYear();
+            } else {
+                console.warn('Current year element in footer not found.');
+            }
+
+            // --- Funcionalidad del Modal y Gemini API ---
+            const aiExamplesModal = document.getElementById('aiExamplesModal');
+            const modalTitleEl = document.getElementById('modalTitle');
+            const modalContentEl = document.getElementById('modalContent');
+            const modalLoadingEl = document.getElementById('modalLoading');
+            const modalErrorEl = document.getElementById('modalError');
+            const closeModalButton = document.getElementById('closeModalButton');
+            const viewAiExamplesButtons = document.querySelectorAll('.view-ai-examples-button');
+
+            const openModal = () => {
+                if (!aiExamplesModal) return;
+                aiExamplesModal.classList.remove('hidden');
+                setTimeout(() => { 
+                    aiExamplesModal.classList.remove('opacity-0');
+                    const modalDialog = aiExamplesModal.querySelector('.modal-content');
+                    if (modalDialog) modalDialog.classList.remove('scale-95');
+                }, 10);
+            };
+
+            const closeModal = () => {
+                if (!aiExamplesModal) return;
+                aiExamplesModal.classList.add('opacity-0');
+                const modalDialog = aiExamplesModal.querySelector('.modal-content');
+                if (modalDialog) modalDialog.classList.add('scale-95');
+                setTimeout(() => { 
+                    aiExamplesModal.classList.add('hidden');
+                }, 250);
+            };
+
+            if (closeModalButton) {
+                closeModalButton.addEventListener('click', closeModal);
+            }
+            if (aiExamplesModal) {
+                 aiExamplesModal.addEventListener('click', function(event) {
+                    if (event.target === aiExamplesModal) { 
+                        closeModal();
+                    }
+                });
+            }
+
+
+            viewAiExamplesButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    const benefitCard = this.closest('.bg-white'); 
+                    if (!benefitCard) return;
+                    const benefitTitleElement = benefitCard.querySelector('.benefit-title');
+                    const benefitDescriptionElement = benefitCard.querySelector('.benefit-description');
+
+                    if (!benefitTitleElement || !benefitDescriptionElement) {
+                        console.error("Benefit title or description element not found in card.");
+                        return;
+                    }
+                    const benefitTitle = benefitTitleElement.textContent.trim();
+                    const benefitDescription = benefitDescriptionElement.textContent.trim();
+
+
+                    if (modalTitleEl) modalTitleEl.textContent = `Ejemplos para: ${benefitTitle}`;
+                    if (modalContentEl) modalContentEl.innerHTML = ''; 
+                    if (modalContentEl) modalContentEl.classList.add('hidden');
+                    if (modalErrorEl) modalErrorEl.classList.add('hidden');
+                    if (modalLoadingEl) modalLoadingEl.classList.remove('hidden');
+                    
+                    openModal();
+
+                    const prompt = `Eres un asistente experto en healthtech y IA. Genera 3 ejemplos prácticos y concisos de cómo una plataforma de software de gestión clínica como HEALTSCOPEAI, que integra IA personalizada, puede aplicar el siguiente beneficio en el día a día de una clínica privada u hospital:
+Beneficio: "${benefitTitle}"
+Descripción del beneficio: "${benefitDescription}"
+Enfócate en resultados tangibles y específicos para médicos, personal administrativo o pacientes. Formatea la respuesta como una lista HTML (ul/li). Asegúrate que cada ítem de la lista (<li>) esté bien formado y cerrado.`;
+                    
+                    try {
+                        let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                        const payload = { contents: chatHistory };
+                        const apiKey = ""; 
+                        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                        
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            console.error('Error from Gemini API:', errorData);
+                            throw new Error(`API request failed with status ${response.status}: ${errorData?.error?.message || response.statusText}`);
+                        }
+
+                        const result = await response.json();
+                        
+                        let generatedText = "No se pudo obtener una respuesta formateada.";
+                        if (result.candidates && result.candidates.length > 0 &&
+                            result.candidates[0].content && result.candidates[0].content.parts &&
+                            result.candidates[0].content.parts.length > 0) {
+                            generatedText = result.candidates[0].content.parts[0].text;
+                        } else {
+                             console.warn("Respuesta de Gemini no contiene el texto esperado:", result);
+                        }
+                        
+                        if (modalContentEl) {
+                            let htmlContent = generatedText;
+                            // Intenta una limpieza más robusta para asegurar que sea HTML válido si Gemini no devuelve HTML directo
+                            if (!htmlContent.trim().startsWith('<ul') && !htmlContent.trim().startsWith('<p')) {
+                                // Si no parece HTML, intenta convertirlo desde un formato de lista simple
+                                htmlContent = htmlContent
+                                    .split('\n') // Divide por líneas
+                                    .map(line => line.trim()) // Quita espacios
+                                    .filter(line => line.length > 0) // Quita líneas vacías
+                                    .map(line => {
+                                        // Asume que líneas con '-' o '*' son items de lista
+                                        if (line.startsWith('- ') || line.startsWith('* ')) {
+                                            return `<li>${line.substring(2)}</li>`;
+                                        }
+                                        return `<li>${line}</li>`; // Envuelve otras líneas como items de lista también
+                                    })
+                                    .join('');
+                                if (htmlContent) {
+                                     htmlContent = `<ul class="list-disc list-inside space-y-2">${htmlContent}</ul>`;
+                                } else {
+                                    htmlContent = "<p>No se generaron ejemplos válidos.</p>";
+                                }
+                            }
+                            modalContentEl.innerHTML = htmlContent; // Asignar el contenido HTML
+                            modalContentEl.classList.remove('hidden');
+                        }
+
+                    } catch (error) {
+                        console.error('Error fetching AI examples:', error);
+                        if (modalErrorEl) modalErrorEl.classList.remove('hidden');
+                        if (modalContentEl) {
+                            modalContentEl.innerHTML = `<p class="text-red-500">Error al generar ejemplos: ${error.message}</p>`;
+                            modalContentEl.classList.remove('hidden');
+                        }
+                    } finally {
+                        if (modalLoadingEl) modalLoadingEl.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
